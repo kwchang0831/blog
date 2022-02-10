@@ -1,0 +1,176 @@
+---
+title: 'Windows 上用 WSL 安裝 Ubuntu'
+date: 'Thu Sep 09 2021 18:00:00 GMT+0800'
+lastmod: 'Tue Oct 12 2021 16:35:41 GMT+0800'
+tags: ['中文', '開發環境', 'Windows', 'WSL', 'Windows Terminal', 'Ubuntu']
+draft: false
+summary: '本篇文章主要紀錄如何在 Windows 10 使用 Windows Terminal 安裝 Linux 子系統 (WSL)，並安裝 Ubuntu。 '
+images: ['/static/images/dev-env/wsl-ubuntu/fig01.webp']
+layout: PostLayout
+authors: ['kwchang0831']
+---
+
+<TOCInline toc={props.toc} tocOpen={false} asDisclosure toHeading={1} />
+<hr />
+
+![fig01](/static/images/dev-env/wsl-ubuntu/fig01.webp)
+
+<br />
+
+# 介紹
+
+本篇文章主要紀錄如何在 Windows 10 使用 Windows Terminal 安裝 Linux 子系統 (WSL)，並安裝 Ubuntu。
+
+# 安裝環境
+
+確認 Windows 10 的版本 為 2004，  
+我目前是更新到 21H1 版本。
+
+![fig02](/static/images/dev-env/wsl-ubuntu/fig02.webp)
+
+<br />
+
+# 安裝 Windows Terminal
+
+Windows Terminal 的介紹與安裝，請參考 [Windows Terminal - 比 Cmder 更好用的終端機](/blog/dev-env/windows-terminal)
+
+# 安裝 WSL
+
+以系統管理員身分打開 PowerShell ，輸入
+
+```shell
+wsl --install
+```
+
+![fig03](/static/images/dev-env/wsl-ubuntu/fig03.webp)
+
+<br />
+
+安裝過程中會幫你安裝 **虛擬機器平台**、**Windows 子系統 Linux 版**、與 **WSL Kernel**，  
+OS 預設會幫你下載 Ubuntu。
+
+安裝完成會需要重開機。
+
+基本上，安裝完之後應該會幫你啟動 **虛擬機器平台** 與 **Windows 子系統 Linux 版** 的功能，
+
+![fig04](/static/images/dev-env/wsl-ubuntu/fig04.webp)
+
+<br />
+
+# 確認 Windows 功能是否打開
+
+若 **虛擬機器平台** 與 **Windows 子系統 Linux 版** 功能沒有啟動，  
+可以自行去打開 Windows 功能裡面打勾啟動。
+
+或是以系統管理員身分打開 PowerShell 輸入：
+
+- ## 打開 虛擬機器平台
+
+```shell
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+```
+
+- ## 打開 Windows 子系統 Linux 版
+
+```shell
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+```
+
+# 重新開機 Windows
+
+完成重開機之後，系統會自動幫你安裝設置 Ubuntu。
+
+## 可能遇到的錯誤 - 錯誤 1.
+
+`WSLRegisterDistribution Error 0x80370102`  
+看到這個錯誤，你需要去看一下 BIOS 硬體虛擬化 (Hardware Vitrualization) 把功能開啟，  
+名稱可能 Intel Virtualization Technology、AMD-V、Hyper-V、VT-X、Vanderpool 或是 SVM。
+
+![fig05](/static/images/dev-env/wsl-ubuntu/fig05.webp)
+
+<br />
+
+# 更新 WSL 的 Kernal
+
+有兩種方式更新，
+
+1. 使用 指令 更新
+
+以系統管理員身分打開 PowerShell 輸入
+
+```
+wsl --update
+```
+
+### 可能遇到的錯誤 - 錯誤 2.
+
+無法更新的話，記得先打開 `Windows Update 設定` > `進階選項`，  
+打開第一個選項: `當您更新Windows時，收到其他Microsoft產品的更新`。
+
+![fig06](/static/images/dev-env/wsl-ubuntu/fig06.webp)
+
+<br />
+
+2. 使用 下載的更新檔 更新
+
+從 https://aka.ms/wsl2kernel 下載 Kernel 更新檔並安裝。
+
+# 手動安裝 Ubuntu
+
+若前面的步驟並沒有自動幫你安裝 Ubuntu，我們也可以選擇自己安裝，
+
+## 查詢可安裝的 Linux Distro
+
+```shell
+wsl -l -o
+```
+
+## 選擇安裝 Ubuntu
+
+```shell
+wsl --install -d Ubuntu
+```
+
+# 進行 Ubutu 初始設置
+
+若 Ubuntu 安裝完成，
+Ubutu 會要求你新建用戶名稱與密碼。
+
+![fig07](/static/images/dev-env/wsl-ubuntu/fig07.webp)
+
+# 確認 WSL 與 Ubuntu 的安裝
+
+在 PowerShell 裡輸入
+
+```shell
+wsl --list --verbose
+```
+
+我們這時應該可以看到有一個 Ubuntu 已經在執行。
+
+# 更新 Ubuntu
+
+```shell
+sudo apt update -y && sudo apt upgrade -y
+```
+
+# [ 選用 ] 更改 Windows Terminal 的預設 Shell
+
+點選 `倒三角` > 選擇 `設定` ，
+
+![fig08](/static/images/dev-env/wsl-ubuntu/fig08.webp)
+
+預設設定檔案改成 Ubuntu，點選儲存。  
+點擊 + 打開新索引標籤，預設會啟動 Ubuntu。
+
+# [ 選用 ] 安裝 NeoFetch 在 Ubuntu 上
+
+## 安裝 NeoFetch
+
+```
+sudo apt install neofetch -y
+```
+
+# Reference
+
+- https://docs.microsoft.com/zh-tw/windows/wsl/install-win10

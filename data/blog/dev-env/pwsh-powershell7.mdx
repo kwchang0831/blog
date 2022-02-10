@@ -1,0 +1,79 @@
+---
+title: 'PowerShell 7 - 來安裝最新版的 PowerShell'
+date: 'Mon Sep 06 2021 18:00:00 GMT+0800'
+lastmod: 'Tue Oct 12 2021 16:35:41 GMT+0800'
+tags: ['中文', '開發環境', 'Windows', 'Windows Terminal', 'PowerShell 7']
+draft: false
+summary: '本篇文章主要紀錄安裝最新版本 PowerShell 的流程。 這邊使用的環境配置為 Windows 10 搭配 Windows Terminal 。 '
+images: ['/static/images/dev-env/pwsh-powershell7/fig01.webp']
+layout: PostLayout
+authors: ['kwchang0831']
+---
+
+<TOCInline toc={props.toc} tocOpen={false} asDisclosure toHeading={1} />
+<hr />
+
+![fig01](/static/images/dev-env/pwsh-powershell7/fig01.webp)
+
+<br />
+
+# 介紹
+
+本篇文章主要紀錄如何安裝 PowerShell 7 - 最新版的 PowerShell。
+
+PowerShell 是一個跨平台 (Windows, Linux, 與 macOS) 的 自動化工具 / 框架 與 Shell。
+
+# 安裝環境
+
+這邊使用的環境配置為 Windows 10 搭配 Windows Terminal 。
+
+# [ 建議 ] 安裝 Windows Termianl
+
+Windows Terminal 的介紹與安裝，請參考 [Windows Terminal - 比 Cmder 更好用的終端機](/blog/dev-env/windows-terminal)
+
+# 安裝 PowerShell 7
+
+如果有安裝過軟體包管理器的話，可使用相對應的軟體包管理器來安裝。
+
+以下介紹兩種安裝方式：
+
+- 手動安裝
+- 使用 [chocolatey](https://chocolatey.org/install) 軟體包管理器來安裝
+
+# 手動安裝 PowerShell 7
+
+1. ## PowerShell 7 的 Github Repo
+
+https://github.com/PowerShell/PowerShell
+
+2. ## 下載最新版本的 Powershell 7
+
+https://aka.ms/powershell-release?tag=stable
+
+!> 我們這邊示範的環境為 Windows 10 x64 ，所以下載 `PowerShell-7.x.x-win-x64.msi` 。
+
+3. ## 安裝 PowerShell 7
+
+點擊兩下即可開始安裝，選項部份我是選擇增加兩個右鍵選單。
+
+![fig02](/static/images/dev-env/pwsh-powershell7/fig02.webp)
+
+其餘都是點擊 Next 下一步就好了。
+
+4. ## 完成安裝
+
+安裝完成後，重新打開 Windows Terminal 就可以看到 PowerShell 被自動加入清單之中。
+
+![fig03](/static/images/dev-env/pwsh-powershell7/fig03.webp)
+
+<br />
+
+# 使用 chocolatey 安裝 Powershell 7
+
+使用 [chocolatey](https://chocolatey.org/install) 可以更快地安裝 PowerShell 7 。
+
+以系統管理員身分打開 PowerShell 輸入，
+
+```shell
+choco install -y powershell-core
+```

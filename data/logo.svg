@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="112.234 160.578 270.969 189.047" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  height="72" width="72">
+  <defs>
+    <linearGradient id="gradient-1-0" gradientUnits="userSpaceOnUse" x1="266.505" y1="16.261" x2="266.505" y2="61.386" gradientTransform="matrix(0.954179, 0.299235, -0.821207, 2.618609, 19.262682, 75.304996)" xlink:href="#gradient-1"/>
+    <linearGradient id="gradient-1">
+      <stop offset="0" style="stop-color: rgb(237, 244, 45);"/>
+      <stop offset="1" style="stop-color: rgb(255, 0, 0);"/>
+    </linearGradient>
+  </defs>
+  <path d="M 130.245 307.197 L 123.945 211.947 L 160.545 211.947 L 163.095 276.897 L 188.145 211.947 L 217.845 211.947 L 221.745 276.897 L 246.945 211.947 L 262.695 211.947 L 225.645 307.197 L 191.895 307.197 L 188.745 253.347 L 166.245 307.197 L 130.245 307.197 ZM 253.836 307.197 L 274.086 211.947 L 337.236 211.947 L 334.836 223.347 L 304.236 223.347 L 297.936 252.297 L 323.586 252.297 L 321.186 263.547 L 295.536 263.547 L 288.636 295.647 L 319.236 295.647 L 316.986 307.197 L 253.836 307.197 ZM 382.081 211.947 L 361.681 307.197 L 329.281 307.197 L 349.531 211.947 L 382.081 211.947 Z" transform="matrix(1, 0, 0, 1, 0, 0)" style="fill: url(#gradient-1-0); fill-opacity: 0.95; white-space: pre;"/>
+</svg>

@@ -1,0 +1,73 @@
+---
+title: 'Windows Terminal - 比 Cmder 更好用的終端機'
+date: 'Sun Sep 05 2021 18:00:00 GMT+0800'
+lastmod: 'Tue Oct 12 2021 16:35:41 GMT+0800'
+tags: ['中文', '開發環境', 'Windows', 'Windows Terminal']
+draft: false
+summary: '本篇文章記錄如何安裝 Windows Terminal。 用了 Windows Termianl 就回不去 Cmder 了。 Windows Terminal 是一款由微軟於 2019 年釋出的現代化終端機應用程式。 '
+images: ['/static/images/dev-env/windows-terminal/fig01.webp']
+layout: PostLayout
+authors: ['kwchang0831']
+---
+
+<TOCInline toc={props.toc} tocOpen={false} asDisclosure toHeading={1} />
+<hr />
+
+![fig01](/static/images/dev-env/windows-terminal/fig01.webp)
+
+<br />
+
+# 介紹
+
+本篇文章記錄如何安裝 Windows Terminal。
+
+用了 Windows Termianl 就回不去 [Cmder](https://cmder.net/) 了。  
+Windows Terminal 是一款由微軟於 2019 年釋出的現代化終端機應用程式。  
+可以執行各種不同的 Shell (命令提示字元、PowerShell、WSL...等等)。
+
+# 安裝 Windows Terminal
+
+以下介紹兩種方式來安裝 Windows Terminal。
+
+- ## 使用 Microsoft Store 來安裝
+
+去 Microsoft Store 裡搜尋 `Windows Terminal` ，並點選取得與安裝。
+
+或是使用以下網址，
+
+https://www.microsoft.com/zh-tw/p/windows-terminal/9n0dx20hk701?rtc=1#activetab=pivot:overviewtab
+
+- ## 使用 [Chocolatey](https://chocolatey.org/install) 來安裝
+
+以有系統管理員權限的 Shell 執行，
+
+```
+choco install microsoft-windows-terminal -y
+```
+
+# 更改顯示語言
+
+若是想要顯示中文介面的話，可以到設定中更改。
+
+![fig02](/static/images/dev-env/windows-terminal/fig02.webp)
+
+<br />
+
+更改完，記得重新啟動後才會生效。
+
+# 新增 Windows Terminal 主題
+
+可以到以下網址找尋自己喜歡的主題，
+
+https://windowsterminalthemes.dev/
+
+找到喜歡的主題之後，點選 Get theme ，設定檔就會被複製到剪貼簿上。
+
+然後打開 Windows Terminal 的設定 > 開啟 JSON 檔案。  
+找到 `"schemes":` ，貼上剛剛的設定檔案到 schemes 底下，記得添加 `,`。
+
+![fig03](/static/images/dev-env/windows-terminal/fig03.webp)
+
+<br />
+
+之後就可以在設定 > 色彩配置 裡面看到你新增的主題了。

@@ -1,0 +1,209 @@
+---
+title: 美化 Ubuntu 的 Terminal - 安裝 Zsh + Oh My Zsh + 各種好用的插件
+date: 'Fri Sep 10 2021 18:00:00 GMT+0800'
+lastmod: 'Thu Oct 21 2021 00:06:40 GMT+0800'
+tags: ['中文', '開發環境', 'Windows', 'WSL', 'Windows Terminal', 'Ubuntu']
+draft: false
+summary: '本篇文章主要紀錄如何美化 Ubuntu 的 Terminal ，讓平常工作起來更高效。 這邊會使用 Zsh 、 Oh My Zsh 與 Powerlevel 10k 主題。 '
+images: ['/static/images/dev-env/ubuntu-oh-my-zsh/fig01.webp']
+layout: PostLayout
+authors: ['kwchang0831']
+---
+
+<TOCInline toc={props.toc} tocOpen={false} asDisclosure toHeading={1} />
+<hr />
+
+![fig01](/static/images/dev-env/ubuntu-oh-my-zsh/fig01.webp)
+
+<br />
+
+# 介紹
+
+本篇文章主要紀錄如何美化 Ubuntu 的 Terminal ，讓平常工作起來更高效。
+
+本篇文章會安裝以下套件：
+
+- Zsh
+- Oh My Zsh
+- Powerlevel 10k 主題
+- zsh-autosuggestions
+- zsh-syntax-highlighting
+- Zsh-z
+
+# 安裝環境
+
+以下使用的環境配置為 Windows 10 搭配 WSL 的 Ubuntu ， 並使用 Windows Terminal 來進行操作。  
+直接使用 Ubuntu 的話，安裝流程也是大致相同，可供參考。
+
+# 安裝 Zsh 與 其他必要的套件
+
+```shell
+sudo apt install wget git curl zsh vim -y
+```
+
+# 安裝 Patched 字型
+
+我們必須先安裝 Patched 過的字型，之後才能正確地顯示字型與圖示。
+
+下載並安裝以下四個字型：
+
+- [MesloLGS NF Regular.ttf](https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Regular.ttf)
+- [MesloLGS NF Bold.ttf](https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Bold.ttf)
+- [MesloLGS NF Italic.ttf](https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Italic.ttf)
+- [MesloLGS NF Bold Italic.ttf](https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Bold%20Italic.ttf)
+
+```shell
+wget https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Regular.ttf &&
+wget https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Bold.ttf &&
+wget https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Italic.ttf &&
+wget https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Bold%20Italic.ttf
+```
+
+## Windows 環境
+
+下載完成後在檔案點擊右鍵並選擇 **安裝** 或 **為所有使用者安裝**。
+
+## Ubuntu 環境
+
+點擊兩下字型檔案，點擊 Install 。
+
+# 更改字體
+
+## Windows
+
+到 Windows Terminal 的設定 > Ubuntu 設定檔 > 外觀，  
+更改字體為 **MesloLGS NF** 就可以了
+
+![fig02](/static/images/dev-env/ubuntu-oh-my-zsh/fig02.webp)
+
+<br />
+
+## Ubuntu
+
+使用內建的 Terminal，字型安裝完畢之後，就可以直接正常顯示不需用修改任何參數。
+
+![fig03](/static/images/dev-env/ubuntu-oh-my-zsh/fig03.webp)
+
+<br />
+
+# 安裝 [Oh My Zsh](https://ohmyz.sh/)
+
+```shell
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+安裝完畢後，按下 Enter 同意把預設 Shell 換成 Zsh。
+
+# [ 選用 ] 設定預設 Shell 為 Zsh
+
+若之前並沒有成功設定修改預設 Shell，請執行以下指令:
+
+```shell
+chsh -s $(which zsh)
+```
+
+然後，執行 zsh 開始使用
+
+```shell
+zsh
+```
+
+# 安裝 [Oh My Zsh](https://ohmyz.sh/) 插件
+
+安裝以下插件的時候，  
+請確定已安裝好 Oh My Zsh ，且目前正在使用的 Shell 是 Zsh。
+
+## 安裝 [PowerLevel10k](https://github.com/romkatv/powerlevel10k) 主題
+
+```shell
+git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+```
+
+## 安裝 [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) 插件
+
+```shell
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+```
+
+## 安裝 [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) 插件
+
+```shell
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
+
+## [ 選用 ] 安裝 [Zsh-z](https://github.com/agkozak/zsh-z) 插件
+
+類似於 [autojump](https://github.com/wting/autojump) 的插件，比 `cd` 更快速地直接跳到想去的資料夾，且效能更好沒有一堆依賴包。
+
+```shell
+git clone https://github.com/agkozak/zsh-z $ZSH_CUSTOM/plugins/zsh-z
+```
+
+## 修改 zshrc
+
+```shell
+vi ~/.zshrc
+```
+
+點擊 i，進入編輯模式。
+
+1. 修改 主題
+
+`ZSH_THEME="powerlevel10k/powerlevel10k"`
+
+2. 新增 要應用的插件 (Plugins)
+
+`plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-z)`
+
+點擊 ESC 跳出編輯模式。
+
+輸入 :wq 儲存。
+
+3. 應用修改過的 zshrc
+
+```shell
+source ~/.zshrc
+```
+
+應用修改之後，因為第一次使用 Powerlevel10k，會自動啟動設定。  
+之後按造你的需求完成設定即可。
+
+4. 重新設定 Powerlevel10k
+
+若之前沒有啟動 Powerlevel10k 設定小幫手，或是日後需要重新設定 Powerlevel10k，
+
+打開 Shell 輸入，
+
+```shell
+p10k configure
+```
+
+## [ 選用 ] [Zsh-z](https://github.com/agkozak/zsh-z) 插件的使用方法
+
+#### 查看已知的資料夾位置
+
+```shell
+z
+```
+
+#### 進入在子資料夾中包含此字串的資料夾
+
+```shell
+cd /
+z et
+```
+
+可以用 `Tab` 來選擇結果，如果有多個符合 et 的資料的話。
+
+#### 查看其他用法
+
+```shell
+z -h
+```
+
+# Reference
+
+- https://github.com/ohmyzsh/ohmyzsh
+- https://github.com/romkatv/powerlevel10k
+- https://github.com/zsh-users/zsh-autosuggestions
+- https://github.com/zsh-users/zsh-syntax-highlighting

@@ -1,0 +1,270 @@
+---
+title: 美化 Centos 7 的 Terminal - 安裝 Zsh + Oh My Zsh + 各種好用的插件
+date: 'Sun Sep 12 2021 18:00:00 GMT+0800'
+lastmod: 'Tue Oct 12 2021 16:35:41 GMT+0800'
+tags: ['中文', '開發環境', 'Windows', 'WSL', 'Windows Terminal', 'Centos 7']
+draft: false
+summary: '美化你的 Centos7 Terminal。安裝 Zsh + Oh My Zsh + Powerlevel10k。 但 Powerlevel10k 對 Zsh 版本需求為 5.1 以上，而 Centos 7 透過 yum 安裝只能到版本 5.02，本篇文章會導引你從 GitHub 下載 Zsh 的原始碼進行編譯安裝。 '
+images: ['/static/images/dev-env/centos7-oh-my-zsh/fig01.webp']
+layout: PostLayout
+authors: ['kwchang0831']
+---
+
+<TOCInline toc={props.toc} tocOpen={false} asDisclosure toHeading={1} />
+<hr />
+
+![fig01](/static/images/dev-env/centos7-oh-my-zsh/fig01.webp)
+
+<br />
+
+# 介紹
+
+本篇文章主要紀錄如何美化 Centos 7 的 Terminal ，讓平常工作起來更高效。  
+這邊會使用 Zsh 、 Oh My Zsh 與 Powerlevel 10k 主題。
+
+因目前 Centos 7 上用 yum 能安裝到 Zsh 版本只到 5.02，  
+而 Powerlevel10k 對於 Zsh 版本需求為 5.1 以上，  
+本篇文章也會介紹如何從 GitHub 下載 Zsh 的原始碼進行編譯安裝。
+
+本篇文章會安裝以下套件：
+
+- Zsh
+- Oh My Zsh
+- Powerlevel 10k 主題
+- zsh-autosuggestions
+- zsh-syntax-highlighting
+- Zsh-z
+
+# 安裝環境
+
+這邊使用的環境配置為 Windows 10 搭配 WSL 安裝 Centos 7 ， 並使用 Windows Terminal 來進行操作。
+直接使用 Centos 7 的話，安裝流程也是大致相同，可供參考。
+
+# [ 選用 ] Windows 上 安裝 WSL + Centos 7
+
+若還沒在 Windows 10 上安裝好 Centos 7 的話，  
+請參考 [Windows 上用 WSL 安裝 Centos 7](/blog/dev-env/wsl-centos) 。
+
+# 安裝 Patched 字型
+
+我們必須先安裝 Patched 過的字型才能正確地顯示。
+
+下載並安裝以下四個字型：
+
+- [MesloLGS NF Regular.ttf](https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Regular.ttf)
+- [MesloLGS NF Bold.ttf](https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Bold.ttf)
+- [MesloLGS NF Italic.ttf](https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Italic.ttf)
+- [MesloLGS NF Bold Italic.ttf](https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Bold%20Italic.ttf)
+
+```shell
+wget https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Regular.ttf &&
+wget https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Bold.ttf &&
+wget https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Italic.ttf &&
+wget https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Bold%20Italic.ttf
+```
+
+下載完成後在檔案點擊右鍵並選擇 **安裝** 或 **為所有使用者安裝**。
+
+# 更改字體
+
+## Windows
+
+到 Windows Terminal 的設定 > Ubuntu 設定檔 > 外觀，  
+更改字體為 **MesloLGS NF** 就可以了
+
+![fig02](/static/images/dev-env/centos7-oh-my-zsh/fig02.webp)
+
+<br />
+
+# 安裝 DNF
+
+```shell
+yum install dnf -y
+```
+
+# 更新 Centos 7
+
+```shell
+dnf update -y && dnf upgrade -y
+```
+
+# 解除安裝 舊版的 Zsh
+
+```shell
+dnf remove zsh
+```
+
+# 編譯安裝 新版的 Zsh
+
+1. 安裝必要的套件
+
+```shell
+dnf install curl git make ncurses-devel gcc autoconf man -y
+```
+
+2. 下載最新版的 Zsh
+
+```shell
+git clone -b zsh-5.8 https://github.com/zsh-users/zsh.git /tmp/zsh
+```
+
+這邊下載版本是 5.8 。
+
+若有其他版本的需求，請參考 https://github.com/zsh-users/zsh/releases 。  
+並更改對應 branch 的版本下載。
+
+3. 編譯安裝 Zsh
+
+```shell
+cd /tmp/zsh
+./Util/preconfig
+./configure
+make -j 20 install.bin install.modules install.fns
+```
+
+4. 刪除剛下載的 Zsh Repo
+
+```shell
+rm -rf /tmp/zsh
+```
+
+5. 新增 Zsh
+
+```shell
+command -v zsh | sudo tee -a /etc/shells
+```
+
+6. 更改預設 Shell 為 Zsh
+
+```shell
+sudo chsh -s $(which zsh)
+```
+
+# 安裝 [Oh My Zsh](https://ohmyz.sh/)
+
+```shell
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+```
+
+# 安裝 [PowerLevel10k](https://github.com/romkatv/powerlevel10k) 主題
+
+https://github.com/romkatv/powerlevel10k
+
+```shell
+git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+```
+
+# 安裝 [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) 插件
+
+https://github.com/zsh-users/zsh-autosuggestions
+
+```shell
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+```
+
+輸入指令時，如果看到灰色字的自動完成顯示，可以按下 ➔ 來採用。
+
+# 安裝 [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) 插件
+
+https://github.com/zsh-users/zsh-syntax-highlighting
+
+```shell
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
+
+## 修改 zshrc 使用者設定檔
+
+```shell
+vi ~/.zshrc
+```
+
+點擊 i，進入編輯模式。
+
+1. 修改 主題
+
+`ZSH_THEME="powerlevel10k/powerlevel10k"`
+
+2. 使用 Plugins
+
+`plugins=(git zsh-autosuggestions zsh-syntax-highlighting)`
+
+點擊 ESC 跳出編輯模式。
+
+輸入 :wq 儲存。
+
+3. 應用修改過的 zshrc
+
+```shell
+source ~/.zshrc
+```
+
+## 設定 Powerlevel10k
+
+應用修改 `~/.zshrc` 之後，因為第一次使用 Powerlevel10k，會自動啟動設定。  
+按造你的需求完成設定即可。
+
+## 重新設定 Powerlevel10k
+
+若之前沒有啟動 Powerlevel10k 設定小幫手，或是還需要重新設定 Powerlevel10k，
+
+打開 Shell 輸入，
+
+```shell
+p10k configure
+```
+
+# [ 選用 ] 安裝 [Zsh-z](https://github.com/agkozak/zsh-z) 插件
+
+類似於 [autojump](https://github.com/wting/autojump) 的插件，比 `cd` 更快速地直接跳到想去的資料夾，且效能更好沒有一堆依賴包。
+
+## 安裝
+
+```shell
+git clone https://github.com/agkozak/zsh-z $ZSH_CUSTOM/plugins/zsh-z
+```
+
+## 修改 zshrc 使用者設定檔
+
+```shell
+vi ~/.zshrc
+```
+
+1. 在 Plugins 增加 `zsh-z`
+
+例如： `plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-z)`
+
+2. 儲存。
+
+3. 應用修改過的 zshrc
+
+```shell
+source ~/.zshrc
+```
+
+## 使用方法
+
+#### 查看已知的資料夾位置
+
+```shell
+z
+```
+
+#### 進入在子資料夾中包含此字串的資料夾
+
+```shell
+cd /
+z et
+```
+
+可以用 `Tab` 來選擇結果，如果有多個符合 et 的資料的話。
+
+#### 查看其他用法
+
+```shell
+z -h
+```
+
+# Reference
+
+- https://ohmyz.sh/
+- https://github.com/romkatv/powerlevel10k

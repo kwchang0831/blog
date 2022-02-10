@@ -1,0 +1,365 @@
+---
+title: '美化 PowerShell 7 - 安裝 Oh My Posh + 各種好用的插件'
+date: 'Wed Sep 08 2021 18:00:00 GMT+0800'
+lastmod: 'Tue Oct 12 2021 16:35:41 GMT+0800'
+tags: ['中文', '開發環境', 'Windows', 'Windows Terminal', 'PowerShell 7']
+draft: false
+summary: '本篇文章主要紀錄如何安裝 Oh My Posh 來美化你的 PowerShell 7（pwsh）並更改主題 (theme)。 我們這邊會安裝使用 Oh My Posh 最新版 V3。 之後我們可以選擇安裝 Posh Git 讓使用 Git 指令的時候有自動完成的功能，或是安裝 ZLocation 讓我們可以更快速地跳到想去的資料夾。'
+images: ['/static/images/dev-env/pwsh-oh-my-posh/fig01.webp']
+layout: PostLayout
+authors: ['kwchang0831']
+---
+
+<TOCInline toc={props.toc} tocOpen={false} asDisclosure toHeading={1} />
+<hr />
+
+![fig01](/static/images/dev-env/pwsh-oh-my-posh/fig01.webp)
+
+<br />
+
+# 概敘
+
+本篇文章主要紀錄如何安裝 Oh My Posh 來美化你的 PowerShell 7（pwsh）並更改主題 (theme)，讓工作環境更高效。
+
+本篇文章會安裝以下套件：
+
+- Git
+- Oh My Posh
+- Posh-Git
+- ZLocation
+- pwsh10k 主題
+- NeoFetch
+- WinFetch
+
+# 安裝環境
+
+這邊使用的環境配置為 Windows 10 搭配 Windows Terminal 與 PowerShell 7 。
+
+我們這邊會安裝使用 Oh My Posh 最新版 V3。  
+之後我們可以選擇安裝 Posh Git 讓使用 Git 指令的時候有自動完成的功能。  
+或是安裝 ZLocation 讓我們可以更快速地跳到想去的資料夾。
+
+# [ 建議 ] 安裝 gsudo
+
+推薦安裝 gsudo 這樣可以更方便地更及時地提升到系統管理員權限，  
+安裝介紹請參考： [gsudo - 讓 Windows 也有 sudo 功能](/blog/dev-env/gsudo)
+
+# 安裝 PowerShell 7
+
+若還沒有安裝最新版的 PowerShell 7 ，  
+安裝介紹請參考： [PowerShell 7 - 來安裝最新版的 PowerShell](/blog/dev-env/pwsh-powershell7)
+
+# 安裝 Git / Git for Windows
+
+若還沒有安裝 Git ，可以使用 [chocolatey](https://chocolatey.org/install) 來安裝。
+
+以系統管理員權限打開 PowerShell 輸入，
+
+```shell
+choco install -y git
+```
+
+或是 下載並安裝 Git for Windows，  
+https://gitforwindows.org/
+
+# 安裝 Patched 字型
+
+為了等一下 Oh My Posh 的主題可以正常顯示字型與圖示，下載以下四個字型並安裝:
+
+- [MesloLGS NF Regular.ttf](https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Regular.ttf)
+- [MesloLGS NF Bold.ttf](https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Bold.ttf)
+- [MesloLGS NF Italic.ttf](https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Italic.ttf)
+- [MesloLGS NF Bold Italic.ttf](https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Bold%20Italic.ttf)
+
+# 更改字型
+
+- ## Windows Terminal
+
+進行設定，選擇 PowerShell 7 的設定 > 外觀 > 字型 。  
+字型改成 `MesloLGS NF` ，儲存。
+
+![fig04](/static/images/dev-env/pwsh-oh-my-posh/fig04.webp)
+
+<br />
+
+- ## PowerShell 7
+
+以系統管理員身分執行 PowerShell 7(x64)。
+
+![fig05](/static/images/dev-env/pwsh-oh-my-posh/fig05.webp)
+
+<br />
+
+更改字型為`MesloLGS NF`。
+
+![fig06](/static/images/dev-env/pwsh-oh-my-posh/fig06.webp)
+
+<br />
+
+# 安裝 Oh My Posh
+
+1. 安裝 Oh My Posh
+
+在 PowerShell 輸入，
+
+```shell
+Install-Module oh-my-posh -Scope CurrentUser
+```
+
+輸入 [A] Yes to All ，全部同意。
+
+2. 更新 oh-my-posh
+
+```shell
+Update-Module oh-my-posh
+```
+
+# 新增/修改 PowerShell 用戶檔案
+
+用習慣的文字編輯器編輯`$Profile`
+
+```shell
+notepad $Profile
+```
+
+添加以下，儲存後關閉。
+
+```shell
+Import-Module oh-my-posh
+Set-PoshPrompt -Theme jandedobbeleer
+```
+
+重新開啟 Windows Terminal 就會生效。
+
+或是輸入以下指令應用修改，
+
+```shell
+. $Profile
+```
+
+# [ 選用 ] 安裝 [posh-git](https://github.com/dahlbyk/posh-git) 插件
+
+如果你希望你的 git 指令可以按下 Tab 就有自動完成功能 (Auto Complete)，那就安裝吧
+
+1. 安裝 posh-git
+
+```shell
+Install-Module posh-git -Scope CurrentUser
+```
+
+輸入 [A] Yes to All ，全部同意。
+
+2. 更新 oh-my-posh
+
+```shell
+Update-Module posh-git
+```
+
+3. 更新 $Profile 檔案
+
+在 `$Profile` 檔案最後一行新增以下指令，
+
+```shell
+Import-Module posh-git
+$env:POSH_GIT_ENABLED = $true
+```
+
+!> 根據 Oh My Posh 官方手冊，預設 Posh Git 的功能是關閉的，所以導入插件之後我們還是要更改環境變數才能讓它開啟。
+
+# 更改 Oh My Posh 主題
+
+Oh My Posh 內建很多不同的主題 (theme)。
+
+輸入以下指令查看內建的主題與預覽，
+
+```shell
+Get-PoshThemes
+```
+
+輸入以下指令可以查看內建主題的安裝位置，
+
+```shell
+Get-PoshThemes -list
+```
+
+我們可以直接輸入指令來更改主題嘗試看看，
+
+```shell
+Set-PoshPrompt -Theme Agnoster
+```
+
+如果確定好了，讓我們修改 `$Profile` 來設定預設要使用的主題，
+
+```shell
+notepad $Profile
+```
+
+`Set-PoshPrompt` 的部分改成想要的主題名稱
+
+```
+Set-PoshPrompt -Theme Agnoster
+```
+
+然後重新開啟 Windows Terminal 後生效。
+
+或是輸入以下指令應用修改，
+
+```shell
+. $Profile
+```
+
+# [ 選用 ] 安裝 [ZLocation](https://github.com/vors/ZLocation) 插件
+
+類似於 [autojump](https://github.com/wting/autojump) 或是 [Zsh-z](https://github.com/agkozak/zsh-z) 的插件，可以用關鍵字直接跳到想去的資料夾，比使用 `cd` 更快速。
+
+1. 安裝 ZLocation
+
+用 PowerShell 輸入以下指令：
+
+```shell
+Install-Module ZLocation -Scope CurrentUser
+```
+
+輸入 [A] Yes to All ，全部同意。
+
+2. 修改使用者設定
+
+```shell
+notepad $Profile
+```
+
+在 `$Profile` 檔案最後一行新增以下指令，
+
+```shell
+Import-Module ZLocation
+```
+
+回到 PowerShell 輸入以下指令應用修改：
+
+```shell
+. $Profile
+```
+
+## 使用方法
+
+#### 查看已知的資料夾位置
+
+```shell
+z
+```
+
+#### 進入包含此字串的資料夾
+
+```shell
+z doc
+```
+
+可以用 `Tab` 來選擇結果，如果有多個符合 doc 的資料的話。
+
+#### 回到之前的資料夾
+
+```shell
+z -
+```
+
+# [ 選用 ] 安裝 pwsh10k 主題
+
+pwsh10k 是一個 Oh My Posh 的主題。  
+https://github.com/Kudostoy0u/pwsh10k
+
+1. ## 下載 Repo
+
+```shell
+git clone https://github.com/Kudostoy0u/pwsh10k.git
+```
+
+2. ## 安裝 pwsh10k
+
+```shell
+cd pwsh10k
+./install.ps1
+```
+
+編輯 `$Profile` 來修改預設要使用的主題，
+
+```shell
+notepad $Profile
+```
+
+`Set-PoshPrompt` 的部分改成
+
+```
+Set-PoshPrompt -Theme ~/pwsh10k.omp.json
+```
+
+然後重新開啟 Windows Terminal 後生效。
+
+或是輸入以下指令應用修改，
+
+```shell
+. $Profile
+```
+
+# [ 選用 ] 安裝 NeoFetch
+
+在 PowerShell 輸入，
+
+1. 設定 Policy
+
+```
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+2. 安裝 Scoop
+
+```
+iwr -useb get.scoop.sh | iex
+```
+
+[Scoop](https://scoop.sh/) 就像 Mac 的 [Homebrew](https://brew.sh/) 一樣讓可以我們更快速地用指令行安裝軟體。
+
+3. 安裝 NeoFetch
+
+即使已經有安裝 git 了，這邊還是要安裝 git ，因為 neofetch 會直接使用 scoop 安裝的 git 。
+
+```
+scoop install git
+scoop install neofetch
+```
+
+# [ 選用 ] 安裝 WinFetch
+
+你也可以考慮使用 [Chocolatey](https://chocolatey.org/) 。
+
+[Chocolatey](https://chocolatey.org/) 是一個軟體包管理工具，  
+類似於 Scoop ，可以透過 CLI 的方式來安裝軟體，
+
+支援的軟體包可以在這裡搜尋： https://community.chocolatey.org/packages
+
+1. ## 安裝 Chocolatey
+
+以系統管理員身分執行 PowerShell 或使用 gsudo 來提升系統管理員權限後，輸入，
+
+```
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+```
+
+2. ## 安裝 WinFetch
+
+以系統管理員身分執行 PowerShell 或使用 gsudo 來提升系統管理員權限後，輸入，
+
+```
+sudo
+```
+
+之後輸入，
+
+```
+choco install winfetch -y
+```
+
+# Reference
+
+- https://github.com/PowerShell/PowerShell
+- https://ohmyposh.dev/
+- https://github.com/dahlbyk/posh-git
