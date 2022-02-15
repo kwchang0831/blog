@@ -1,4 +1,4 @@
-<h1><img style="float:middle" width="auto" alt="HEADER" src="https://raw.githubusercontent.com/gist/kwchang0831/b7b9741ca9380b77cb1088a598ca5e27/raw/metrics.repository.intro.svg"></h1>
+# [<img style="float:middle" width="auto" alt="HEADER" src="https://raw.githubusercontent.com/gist/kwchang0831/b7b9741ca9380b77cb1088a598ca5e27/raw/metrics.repository.intro.svg">](#)
 
 My first personal blog utilizing Jamstack for the fast and secure site 
 
@@ -12,7 +12,7 @@ This blog is modified from [Tailwind Nextjs Theme](https://github.com/timlrx/tai
 
 ## PageSpeed Insight
 
-<img style="float:middle" width="auto" alt="PAGESPEED" src="https://raw.githubusercontent.com/gist/kwchang0831/b7b9741ca9380b77cb1088a598ca5e27/raw/metrics.pagespeed.svg">
+[<img style="float:middle" width="auto" alt="PAGESPEED" src="https://raw.githubusercontent.com/gist/kwchang0831/b7b9741ca9380b77cb1088a598ca5e27/raw/metrics.pagespeed.svg">](#)
 
 ## Tools Used
 
